@@ -30,7 +30,7 @@ jobs:
         run: |
           pytest
 
-      # 5. Log in to Docker Hub (Updated with your exact secret names!)
+      # 5. Log in to Docker Hub
       - name: Log in to Docker Hub
         uses: docker/login-action@v3
         with:
@@ -44,3 +44,8 @@ jobs:
           context: .
           push: true
           tags: ramosjm080/automated-container-pipeline:latest
+
+      # 7. Trigger Render deployment using your secure Deploy Hook!
+      - name: Deploy to Render
+        run: |
+          curl -f "${{ secrets.RENDER_DEPLOY_HOOK }}"
