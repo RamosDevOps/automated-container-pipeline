@@ -10,11 +10,11 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # 1. Pull down your repository code (Updated to v4)
+      # 1. Pull down your repository code
       - name: Checkout Code
         uses: actions/checkout@v4
 
-      # 2. Set up Python on the runner (Updated to v5)
+      # 2. Set up Python on the runner
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
@@ -25,19 +25,19 @@ jobs:
         run: |
           pip install -r requirements.txt
 
-      # 4. Run Pytest
+      # 4. Run Unit Tests
       - name: Run Unit Tests
         run: |
           pytest
 
-      # 5. Log in to Docker Hub (Updated to v3)
+      # 5. Log in to Docker Hub (Updated with your exact secret names!)
       - name: Log in to Docker Hub
         uses: docker/login-action@v3
         with:
-          username: ${{ secrets.DOCKER_USERNAME }}
-          password: ${{ secrets.DOCKER_PASSWORD }}
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
 
-      # 6. Build the image and push it to Docker Hub (Updated to v5)
+      # 6. Build the image and push it to Docker Hub
       - name: Build and Push Docker Image
         uses: docker/build-push-action@v5
         with:
