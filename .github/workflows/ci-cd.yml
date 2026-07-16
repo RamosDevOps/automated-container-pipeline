@@ -1,6 +1,5 @@
 name: CI/CD Pipeline
 
-# This triggers the workflow on every push to the main branch
 on:
   push:
     branches:
@@ -11,36 +10,36 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # 1. Pull down your repository code onto GitHub's runner
+      # 1. Pull down your repository code (Updated to v4)
       - name: Checkout Code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
-      # 2. Set up Python on the runner
+      # 2. Set up Python on the runner (Updated to v5)
       - name: Set up Python
-        uses: actions/setup-python@v4
+        uses: actions/setup-python@v5
         with:
           python-version: '3.9'
 
-      # 3. Install your Flask and Pytest dependencies
+      # 3. Install dependencies
       - name: Install Dependencies
         run: |
           pip install -r requirements.txt
 
-      # 4. Run Pytest (This will stop the pipeline if your tests fail!)
+      # 4. Run Pytest
       - name: Run Unit Tests
         run: |
           pytest
 
-      # 5. Log in to your Docker Hub using the secrets we saved
+      # 5. Log in to Docker Hub (Updated to v3)
       - name: Log in to Docker Hub
-        uses: docker/login-action@v2
+        uses: docker/login-action@v3
         with:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
 
-      # 6. Build the image and push it to Docker Hub
+      # 6. Build the image and push it to Docker Hub (Updated to v5)
       - name: Build and Push Docker Image
-        uses: docker/build-push-action@v4
+        uses: docker/build-push-action@v5
         with:
           context: .
           push: true
